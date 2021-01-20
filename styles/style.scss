@@ -12,6 +12,16 @@
   list-style: none;
 
   body {
+    ul, p{
+      margin-bottom: 0px;
+    }
+
+    a{
+      &:hover{
+        text-decoration: none;
+      }
+    }
+
     img{
       max-width: 100%;
     }
@@ -20,3 +30,4 @@
 
 @import './components/HeaderStyle/style.scss';
 @import './components/Home/style.scss';
+@import './components/product/style.scss';

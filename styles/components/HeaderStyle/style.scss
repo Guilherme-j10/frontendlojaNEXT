@@ -118,8 +118,8 @@
           border-radius: 50px;
           position: absolute;
           background-color: red;
-          top: -9px;
-          right: -11px;
+          top: 1px;
+          right: -12px;
           color: #fff;
           border: solid 3px #3FA5D1;
           display: flex;
@@ -151,11 +151,11 @@
       a{
         color: #fff;
         display: flex;
-        font-size: 1em;
+        font-size: .9em;
         justify-content: center;
         align-items: center;
         transition: all linear .2s;
-        padding: 15px 20px;
+        padding: 10px 15px;
         height: 100%;
 
         &:hover{
@@ -184,11 +184,11 @@
       a{
         color: #fff;
         display: flex;
-        font-size: 1em;
+        font-size: .9em;
         justify-content: center;
         align-items: center;
         transition: all linear .2s;
-        padding: 15px 20px;
+        padding: 10px 20px;
         height: 100%;
 
         svg {
