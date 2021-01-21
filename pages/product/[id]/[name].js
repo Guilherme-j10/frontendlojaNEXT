@@ -4,7 +4,7 @@ import Header from '../../../components/Header/index';
 import Link from 'next/link';
 import LoadScreen from '../../../components/loadScreen/index';
 import api from '../../../service/api';
-import { AiFillHeart } from 'react-icons/ai';
+import { AiFillHeart, AiOutlineLike, AiOutlineStar, AiFillStar } from 'react-icons/ai';
 import { FaShareAlt, FaLongArrowAltRight, FaShoppingCart, FaTruck } from 'react-icons/fa';
 import { RiShoppingBasket2Fill } from 'react-icons/ri';
 import { url } from '../../../utils/constant';
@@ -136,6 +136,45 @@ const ProductPage = ({ productInfo }) => {
             <h1>Descrição</h1>
           </div>
           <p>{productInfo.descricao_produto}</p>
+        </div>
+        <div className="CommentsAboutProducts">
+          <div className="HeaderDescription">
+            <h1>COMENTÁRIOS DOS CLIENTES</h1>
+            <button>Avaliar produto</button>
+          </div>
+          {productInfo.comentarios.map((dados, i) => (
+            <div key={i} className="ContainerContentComment">
+              <div className="leftSide">
+                <div className="informationComment">
+                  <h1>{dados.titulo_comentario}</h1>
+                  <div className="sectionNote">
+                    {(() => {
+                      const noStar = 5 - dados.nota;
+                      let stars = [];
+                      for(let i = 0; i < dados.nota; i++){
+                        stars.push(<AiFillStar style={{fontSize: '20px', color: 'rgb(242, 200, 50)'}}/>);
+                      }
+                      for(let k = 0; k < noStar; k++){
+                        stars.push(<AiOutlineStar style={{fontSize: '20px', color: 'rgb(242, 200, 50)'}}/>);
+                      }
+
+                      return stars;
+                    })()}
+                  </div>
+                  <p>{dados.texto_comentario}</p>
+                  <small>Guilherme</small>
+                </div>
+                <p>{dados.data.replace(/-/g, '/').split('/').reverse().join('/')}</p>
+              </div>
+              <div className="rightSide">
+                <h1>Esta avaliação foi útil ?</h1>
+                <button>
+                  <AiOutlineLike />
+                  ({dados.like_comentario})
+                </button>
+              </div>
+            </div>
+          ))}
         </div>
       </>
     );
