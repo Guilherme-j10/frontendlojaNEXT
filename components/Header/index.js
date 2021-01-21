@@ -1,13 +1,40 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Link from 'next/link';
 import { AiOutlineSearch, AiOutlineHeart } from 'react-icons/ai';
 import { BiUser } from 'react-icons/bi';
 import { MdKeyboardArrowDown } from 'react-icons/md';
 import { FiInstagram } from 'react-icons/fi';
 import { VscThreeBars } from 'react-icons/vsc';
+import { MdEmail } from 'react-icons/md';
+import { RiLockPasswordFill } from 'react-icons/ri';
 import { FaShoppingCart, FaFacebook, FaTwitter } from 'react-icons/fa';
 
 const Header = () => {
+
+  const log = (value) => console.log(value);
+
+  const Modais = {
+    CallModal: () => {
+      const ModalLogin = document.getElementById('modalLogin').style.display = 'flex';
+    },
+    CloseModal: () => {
+      const ModalLogin = document.getElementById('modalLogin').style.display = 'none';
+    },
+    CloseModalOtherForm: () => {
+      setInterval(() => {
+        window.addEventListener('click', (e) => {
+          if(e.target.className == 'modal'){
+            document.getElementById('modalLogin').style.display = 'none';
+          }
+        })
+      }, 100);
+    }
+  };
+
+  useEffect(() => {
+    Modais.CloseModalOtherForm();
+  }, []);
+
   return(
   <>
     <div className="HeaderContainer">
@@ -31,7 +58,7 @@ const Header = () => {
               <BiUser />
             </span>
             <div className="ButtonToLogin">
-              <p>Olá, faça seu login<br /> ou cadastre-se <MdKeyboardArrowDown style={{marginTop: '-5px'}}/></p>
+              <p>Olá, faça seu <strong style={{cursor: 'pointer'}} onClick={(e) => {Modais.CallModal()}} >login</strong><br /> ou <strong style={{cursor: 'pointer'}} onClick={(e) => {alert('cadastro')}} >cadastre-se</strong> <MdKeyboardArrowDown style={{marginTop: '-5px'}}/></p>
             </div>
           </div>
         </div>
@@ -136,6 +163,31 @@ const Header = () => {
         </li>
       </ul>
     </div>
+    <section className="modal" id="modalLogin">
+      <div className="ContainerModal">
+        <div className="HeaderContent">
+          <h1>Log in</h1>
+        </div>
+        <form className="loginForm">
+          <div className="linePut">
+            <input type="email" name="email" required placeholder="E-mail" />
+            <MdEmail />
+          </div>
+          <div className="linePut">
+            <input type="password" name="senha" required placeholder="Senha" />
+            <RiLockPasswordFill />
+          </div>
+          <button type="submit">
+            Entrar
+          </button>
+        </form>
+        <div className="forgotPassword">
+          <Link href="#">
+            <a>Esqueci a senha</a>
+          </Link>
+        </div>
+      </div>
+    </section>
   </>
   );
 }
