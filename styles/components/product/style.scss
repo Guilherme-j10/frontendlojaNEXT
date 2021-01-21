@@ -56,6 +56,14 @@
           }
         }
       }
+
+      .productPathFile {
+        width: 100%;
+        height: 48vh;
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+      }
     }
 
     .location_info_product{
@@ -255,5 +263,29 @@
         }
       }
     }
+  }
+}
+
+.descriptionProducts{
+  width: 100%;
+  padding: 2% 10%;
+
+  .HeaderDescription {
+    width: 100%;
+    border-bottom: solid 1px #ccc;
+    padding: 15px;
+
+    h1{
+      font-size: 1.3em;
+      margin-bottom: 0px;
+      font-weight: bold;
+      text-transform: uppercase;
+    }
+  }
+
+  p {
+    color: #666;
+    line-height: 1.8em;
+    margin: 20px 20px;
   }
 }

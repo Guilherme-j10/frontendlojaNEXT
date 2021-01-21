@@ -1,14 +1,53 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Head from '../../../components/Head/index';
 import Header from '../../../components/Header/index';
-//import { useRouter } from 'next/router';
+import Link from 'next/link';
+import LoadScreen from '../../../components/loadScreen/index';
 import api from '../../../service/api';
 import { AiFillHeart } from 'react-icons/ai';
-import { FaShareAlt, FaLongArrowAltRight, FaTruck } from 'react-icons/fa';
+import { FaShareAlt, FaLongArrowAltRight, FaShoppingCart, FaTruck } from 'react-icons/fa';
 import { RiShoppingBasket2Fill } from 'react-icons/ri';
 import { url } from '../../../utils/constant';
 
 const ProductPage = ({ productInfo }) => {
+
+  const [ products, setProducts ] = useState([]);
+  const [ nameCategory, setNameCategory ] = useState('');
+
+  const log = (value) => console.log(value);
+
+  const getSimilarProduct = async () => {
+    try {
+      const response = await api.get(`/ListProduct/${productInfo.id_categoria}`);
+      let arrProducts = [];
+      response.data.map(dados => {
+        if(dados.id_produto !== productInfo.id_produto){
+          arrProducts.push(dados);
+        }
+      })
+      setProducts(arrProducts);
+    } catch (error) {
+      log(error);
+    } 
+  }
+
+  const getCategoryName = async () => {
+    try {
+      const response = await api.get('/listCategorias');
+      response.data.map(dados => {
+        if(dados.id_categoria == productInfo.id_categoria){
+          setNameCategory(dados.nome_categoria)
+        }
+      })
+    } catch (error) {
+      log(error);
+    }
+  }
+
+  useEffect(() => {
+    getSimilarProduct();
+    getCategoryName();
+  }, [productInfo]);
 
   if(productInfo){
     return(
@@ -21,18 +60,18 @@ const ProductPage = ({ productInfo }) => {
               <div className="header_options">
                 <a href="#"><AiFillHeart /> Favoritar</a>
                 <a href="#"><FaShareAlt /> Compartilhar</a>
-              </div> 
-                <img src={url+'/'+productInfo.imagem_produto} alt="img" />
               </div>
+              <span className="productPathFile" style={{backgroundImage: `url(${url+'/'+productInfo.imagem_produto})`}}></span>
+            </div>
             <div className="location_info_product">
               <div className="header_info_product">
                 <small className="brand">{productInfo.marca_produto}</small>
                 <h1>{productInfo.nome_produto}</h1>
                 <div className="row_line">
-                  <small>(Cód. {productInfo.id_produto})</small>
+                  <small>Categoria: {nameCategory}</small>
                 </div>
               </div>
-                <p>{productInfo.descricao_produto}</p>
+                <p>{productInfo.descricao_produto.split('').length > 100 ? `${productInfo.descricao_produto.substr(0, 100)}...` : productInfo.descricao_produto}</p>
                 <a href="#">Mais informações do produto</a>
                 <a href="#">Política e troca e devolução</a>
             </div>
@@ -63,10 +102,45 @@ const ProductPage = ({ productInfo }) => {
             </form>
           </div>
         </section>
+        {products.length == 0 ? false : (
+          <div className="sectionProduct">
+            <div className="HeaderContainerProduct">
+              <h1>PRODUTOS RELACIONADOS</h1>
+            </div>
+            <div className="products">
+              {products.map((dados, i) => (
+                <Link key={i} href={`/product/${dados.id_produto}/${dados.nome_produto.toLowerCase().replace(/ /g, '-')}`}>
+                  <a className="cards">
+                    <span className="productImg" style={{backgroundImage: `url(${url+'/'+dados.imagem_produto})`}}></span>
+                    <div className="description">
+                      <p>{dados.nome_produto}</p>
+                      <span className="price">
+                        <p>Por : </p><h1>R$ {dados.valor_produto.replace('.', ',')}</h1>
+                      </span>
+                      <small>Total a vista sem juros</small>
+                      <form action="" method="">
+                        <button name="add_card" type="submit">
+                          <span className="cart"><FaShoppingCart /></span>
+                          <p>Adcionar ao carrinho</p>
+                        </button>
+                      </form>
+                    </div>
+                  </a>
+                </Link>
+              ))}
+            </div>
+          </div>
+        )}
+        <div className="descriptionProducts">
+          <div className="HeaderDescription">
+            <h1>Descrição</h1>
+          </div>
+          <p>{productInfo.descricao_produto}</p>
+        </div>
       </>
     );
   }else{
-    return <h1>carregando</h1>
+    return <LoadScreen />
   }
 }
 

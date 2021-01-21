@@ -349,6 +349,12 @@
             margin-right: 10px; }
           .standard_styled .big_side_left .saty_image_and_info .header_options a:hover {
             text-decoration: underline; }
+      .standard_styled .big_side_left .saty_image_and_info .productPathFile {
+        width: 100%;
+        height: 48vh;
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center; }
     .standard_styled .big_side_left .location_info_product {
       width: 100%;
       display: flex;
@@ -493,5 +499,22 @@
           border-radius: 3px;
           padding: 12px;
           cursor: pointer; }
+
+.descriptionProducts {
+  width: 100%;
+  padding: 2% 10%; }
+  .descriptionProducts .HeaderDescription {
+    width: 100%;
+    border-bottom: solid 1px #ccc;
+    padding: 15px; }
+    .descriptionProducts .HeaderDescription h1 {
+      font-size: 1.3em;
+      margin-bottom: 0px;
+      font-weight: bold;
+      text-transform: uppercase; }
+  .descriptionProducts p {
+    color: #666;
+    line-height: 1.8em;
+    margin: 20px 20px; }
 
 /*# sourceMappingURL=style.css.map */

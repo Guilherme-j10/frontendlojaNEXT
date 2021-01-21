@@ -31,7 +31,7 @@ const Header = () => {
               <BiUser />
             </span>
             <div className="ButtonToLogin">
-              <p>Olá, faça seu login<br /> ou cadastrese <MdKeyboardArrowDown /></p>
+              <p>Olá, faça seu login<br /> ou cadastre-se <MdKeyboardArrowDown style={{marginTop: '-5px'}}/></p>
             </div>
           </div>
         </div>
