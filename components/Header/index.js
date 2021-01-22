@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useContext, useState } from 'react';
 import Link from 'next/link';
 import { AiOutlineSearch, AiOutlineHeart } from 'react-icons/ai';
 import { BiUser } from 'react-icons/bi';
@@ -8,10 +8,31 @@ import { VscThreeBars } from 'react-icons/vsc';
 import { MdEmail } from 'react-icons/md';
 import { RiLockPasswordFill } from 'react-icons/ri';
 import { FaShoppingCart, FaFacebook, FaTwitter } from 'react-icons/fa';
+import api from '../../service/api';
+import { ToastContainer, toast } from 'react-toastify';
 
-const Header = () => {
-
+const Header = ({ ready }) => {
   const log = (value) => console.log(value);
+
+  const createLogin = async(e) => {
+    e.preventDefault();
+
+    try {
+      const response = await api.post('/loginUser', {
+        email: e.target.email.value,
+        senha: e.target.senha.value
+      });
+
+      if(response.data.token){
+        localStorage.setItem('TokenHirokiToys', response.data.token);
+        Modais.CloseModal();
+      }
+
+      toast.error(response.data, {position: 'bottom-right'});
+    } catch (error) {
+      log(error);
+    }
+  }
 
   const Modais = {
     CallModal: () => {
@@ -58,7 +79,11 @@ const Header = () => {
               <BiUser />
             </span>
             <div className="ButtonToLogin">
-              <p>Olá, faça seu <strong style={{cursor: 'pointer'}} onClick={(e) => {Modais.CallModal()}} >login</strong><br /> ou <strong style={{cursor: 'pointer'}} onClick={(e) => {alert('cadastro')}} >cadastre-se</strong> <MdKeyboardArrowDown style={{marginTop: '-5px'}}/></p>
+              {ready == true ? (
+                <p>Bem vindo<br /> <strong style={{cursor: 'pointer'}} >Minha conta</strong></p>
+              ) : (
+                <p>Olá, faça seu <strong style={{cursor: 'pointer'}} onClick={(e) => {Modais.CallModal()}} >login</strong><br /> ou <strong style={{cursor: 'pointer'}} onClick={(e) => {alert('cadastro')}} >cadastre-se</strong> <MdKeyboardArrowDown style={{marginTop: '-5px'}}/></p>
+              )}
             </div>
           </div>
         </div>
@@ -168,7 +193,7 @@ const Header = () => {
         <div className="HeaderContent">
           <h1>Log in</h1>
         </div>
-        <form className="loginForm">
+        <form onSubmit={createLogin} className="loginForm">
           <div className="linePut">
             <input type="email" name="email" required placeholder="E-mail" />
             <MdEmail />
@@ -188,8 +213,10 @@ const Header = () => {
         </div>
       </div>
     </section>
+    <ToastContainer />
   </>
   );
 }
 
 export default Header;
+

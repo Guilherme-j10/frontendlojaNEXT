@@ -1,20 +1,24 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import Head from '../components/Head/index';
 import HeaderContainer from '../components/Header/index';
 import Link from 'next/link';
 import { FaShoppingCart } from 'react-icons/fa';
+import Footer from '../components/footer/index';
 import { BsFillStarFill, BsShieldShaded } from 'react-icons/bs'; 
 import { ImTruck } from 'react-icons/im';
+import { AuthContext, AuthProvider } from '../context/AuthContext';
 import api from '../service/api';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import { Carousel } from 'react-bootstrap';
 import { url } from '../utils/constant';
 
-const Home = ({ products }) => {
+const Home = ({ produto }) => {
+
+  const [ logged, _ ] = useContext(AuthContext);
+
   return (
     <>
       <Head titlePage="Home" />
-      <HeaderContainer />
+      <HeaderContainer ready={logged} />
       <Carousel>
         <Carousel.Item>
           <img
@@ -74,8 +78,11 @@ const Home = ({ products }) => {
           <h1>NOVIDADES</h1>
         </div>
         <div className="products">
-          {products.map((dados, i) => (
-            <Link key={i} href={`/product/${dados.id_produto}/${dados.nome_produto.toLowerCase().replace(/ /g, '-')}`}>
+          {produto.map((dados, i) => (
+            <Link
+              key={i} 
+              href={`/product/${dados.id_produto}/${dados.nome_produto.toLowerCase().replace(/ /g, '-')}`}
+            >
               <a className="cards">
                 <span className="productImg" style={{backgroundImage: `url(${url+'/'+dados.imagem_produto})`}}></span>
                 <div className="description">
@@ -96,8 +103,17 @@ const Home = ({ products }) => {
           ))}
         </div>
       </div>
+      <Footer />
     </>
   )
+}
+
+const Main = ({ products }) => {
+  return(
+    <AuthProvider>
+      <Home produto={products} />
+    </AuthProvider>
+  );
 }
 
 export const getStaticProps = async () => {
@@ -110,4 +126,4 @@ export const getStaticProps = async () => {
   }
 }
 
-export default Home; 
+export default Main; 
