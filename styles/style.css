@@ -368,6 +368,16 @@
         align-items: center;
         flex-direction: column;
         margin-bottom: 25px; }
+        .standard_styled .big_side_left .location_info_product .header_info_product .globalAvaliation {
+          width: 100%;
+          flex-direction: row;
+          justify-content: flex-start;
+          align-items: center; }
+          .standard_styled .big_side_left .location_info_product .header_info_product .globalAvaliation small {
+            width: 10%;
+            padding: 0px;
+            color: #555;
+            margin-left: 5px; }
         .standard_styled .big_side_left .location_info_product .header_info_product .brand {
           width: 100%;
           color: #3FA5D1; }
@@ -544,6 +554,26 @@
       .CommentsAboutProducts .HeaderDescription button:hover {
         color: #fff;
         background-color: #3FA5D1; }
+  .CommentsAboutProducts .WithOutComments {
+    width: 100%;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center; }
+    .CommentsAboutProducts .WithOutComments h1 {
+      color: #444;
+      font-size: 1.1em;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      margin-top: 20px; }
+      .CommentsAboutProducts .WithOutComments h1 svg {
+        font-size: 2.5em;
+        margin-bottom: 10px; }
+    .CommentsAboutProducts .WithOutComments small {
+      color: #555; }
   .CommentsAboutProducts .ContainerContentComment {
     width: 100%;
     padding: 20px;
@@ -581,7 +611,20 @@
           margin-bottom: 20px; }
         .CommentsAboutProducts .ContainerContentComment .leftSide .informationComment small {
           color: #666;
-          font-weight: bold; }
+          font-weight: bold;
+          display: flex;
+          justify-content: flex-start;
+          align-items: center; }
+          .CommentsAboutProducts .ContainerContentComment .leftSide .informationComment small p {
+            margin-bottom: 0px;
+            background-color: #ebebeb;
+            padding: 5px 10px;
+            border-radius: 5px;
+            margin-left: 10px;
+            color: #666; }
+            .CommentsAboutProducts .ContainerContentComment .leftSide .informationComment small p > svg {
+              font-size: 20px;
+              color: #018f01; }
       .CommentsAboutProducts .ContainerContentComment .leftSide p {
         color: #555; }
     .CommentsAboutProducts .ContainerContentComment .rightSide {
@@ -792,5 +835,103 @@
           margin-right: 15px; }
           .footer .box_bottom .left_side ul li img, .footer .box_bottom .right_side ul li img {
             border-radius: 4px; }
+
+.createComent {
+  width: 100%;
+  height: 100vh;
+  background-color: #1111112d;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  display: none;
+  justify-content: center;
+  align-items: center; }
+  .createComent .ContainerModal {
+    width: 35vw;
+    padding: 20px;
+    min-height: 30vh;
+    border-radius: 5px;
+    background-color: #fff;
+    box-shadow: 0px 0px 15px 1px #1111112d; }
+    .createComent .ContainerModal .HeaderContent, .createComent .ContainerModal .forgotPassword {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 20px;
+      align-items: center;
+      border-bottom: solid 1px #ccc; }
+      .createComent .ContainerModal .HeaderContent h1, .createComent .ContainerModal .forgotPassword h1 {
+        color: #555;
+        font-size: 1.5em;
+        font-weight: bold; }
+      .createComent .ContainerModal .HeaderContent svg, .createComent .ContainerModal .forgotPassword svg {
+        font-size: 1.6em;
+        cursor: pointer;
+        margin-top: -5px; }
+    .createComent .ContainerModal .forgotPassword {
+      border-bottom: none;
+      border-top: solid 1px #ccc;
+      margin-top: 20px;
+      margin-bottom: 0px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 10px; }
+      .createComent .ContainerModal .forgotPassword button {
+        width: 120px;
+        padding: 12px;
+        text-align: center;
+        color: #fff;
+        background-color: #777;
+        border-radius: 5px; }
+      .createComent .ContainerModal .forgotPassword button:last-child {
+        background-color: #1f7ac4;
+        color: #fff; }
+    .createComent .ContainerModal .loginForm {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start; }
+      .createComent .ContainerModal .loginForm .line {
+        width: 100%;
+        display: flex;
+        justify-content: flex-start;
+        align-items: flex-start;
+        margin-bottom: 10px;
+        flex-direction: column; }
+        .createComent .ContainerModal .loginForm .line label {
+          width: 100%;
+          margin-bottom: 5px;
+          color: #333; }
+        .createComent .ContainerModal .loginForm .line input, .createComent .ContainerModal .loginForm .line select {
+          width: 100%;
+          padding: 12px;
+          border-radius: 5px;
+          border: solid 1px #ccc; }
+      .createComent .ContainerModal .loginForm .linePut {
+        width: 100%;
+        background-color: #ebebeb;
+        padding: 10px;
+        border-radius: 5px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 10px; }
+        .createComent .ContainerModal .loginForm .linePut input {
+          width: 100%;
+          background-color: transparent; }
+        .createComent .ContainerModal .loginForm .linePut svg {
+          color: #666;
+          font-size: 20px; }
+      .createComent .ContainerModal .loginForm button {
+        width: 100%;
+        background-color: #3FA5D1;
+        color: #fff;
+        padding: 10px;
+        border-radius: 5px;
+        transition: all linear .1s; }
+        .createComent .ContainerModal .loginForm button:hover {
+          background-color: #276e8d; }
 
 /*# sourceMappingURL=style.css.map */

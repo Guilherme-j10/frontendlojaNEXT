@@ -81,6 +81,20 @@
         flex-direction: column;
         margin-bottom: 25px;
 
+        .globalAvaliation{
+          width: 100%;
+          flex-direction: row;
+          justify-content: flex-start;
+          align-items: center;
+
+          small{
+            width: 10%;
+            padding: 0px;
+            color: #555;
+            margin-left: 5px;
+          }
+        }
+
         .brand{
           width: 100%;
           color: #3FA5D1;
@@ -326,6 +340,34 @@
     }
   }
 
+  .WithOutComments{
+    width: 100%;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    h1{
+      color: #444;
+      font-size: 1.1em;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      margin-top: 20px;
+
+      svg {
+        font-size: 2.5em;
+        margin-bottom: 10px;
+      }
+    }
+
+    small{
+      color: #555;
+    }
+  }
+
   .ContainerContentComment {
     width: 100%;
     padding: 20px;
@@ -373,6 +415,24 @@
         small{
           color: #666;
           font-weight: bold;
+          display: flex;
+          justify-content: flex-start;
+          align-items: center;
+
+          p{
+            margin-bottom: 0px;
+            background-color: #ebebeb;
+            padding: 5px 10px;
+            border-radius: 5px;
+            margin-left: 10px;
+            color: #666;
+
+            > svg {
+              font-size: 20px;
+              color: #018f01;
+            }
+          }
+
         }
       }
 

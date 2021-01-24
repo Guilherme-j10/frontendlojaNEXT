@@ -24,6 +24,7 @@ const Header = ({ ready }) => {
       });
 
       if(response.data.token){
+        window.location.reload();
         localStorage.setItem('TokenHirokiToys', response.data.token);
         Modais.CloseModal();
       }
@@ -79,10 +80,10 @@ const Header = ({ ready }) => {
               <BiUser />
             </span>
             <div className="ButtonToLogin">
-              {ready == true ? (
-                <p>Bem vindo<br /> <strong style={{cursor: 'pointer'}} >Minha conta</strong></p>
-              ) : (
+              {ready !== true ? (
                 <p>Olá, faça seu <strong style={{cursor: 'pointer'}} onClick={(e) => {Modais.CallModal()}} >login</strong><br /> ou <strong style={{cursor: 'pointer'}} onClick={(e) => {alert('cadastro')}} >cadastre-se</strong> <MdKeyboardArrowDown style={{marginTop: '-5px'}}/></p>
+              ) : (
+                <p>Bem vindo<br /> <strong style={{cursor: 'pointer'}} >Minha conta</strong></p>
               )}
             </div>
           </div>
