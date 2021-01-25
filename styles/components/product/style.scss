@@ -433,6 +433,19 @@
             }
           }
 
+          button {
+            background-color: #e74747;
+            color: #fff;
+            padding: 5px 10px;
+            transition: all linear .2s;
+            margin-left: 10px;
+            cursor: pointer;
+            border-radius: 3px;
+
+            &:hover {
+              background-color: #b33434;
+            }
+          }
         }
       }
 

@@ -625,6 +625,16 @@
             .CommentsAboutProducts .ContainerContentComment .leftSide .informationComment small p > svg {
               font-size: 20px;
               color: #018f01; }
+          .CommentsAboutProducts .ContainerContentComment .leftSide .informationComment small button {
+            background-color: #e74747;
+            color: #fff;
+            padding: 5px 10px;
+            transition: all linear .2s;
+            margin-left: 10px;
+            cursor: pointer;
+            border-radius: 3px; }
+            .CommentsAboutProducts .ContainerContentComment .leftSide .informationComment small button:hover {
+              background-color: #b33434; }
       .CommentsAboutProducts .ContainerContentComment .leftSide p {
         color: #555; }
     .CommentsAboutProducts .ContainerContentComment .rightSide {

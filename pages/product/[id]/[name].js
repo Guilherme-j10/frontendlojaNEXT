@@ -10,6 +10,7 @@ import { AiFillHeart, AiOutlineLike, AiOutlineStar, AiFillStar } from 'react-ico
 import { FaShareAlt, FaLongArrowAltRight, FaShoppingCart, FaTruck } from 'react-icons/fa';
 import { RiShoppingBasket2Fill } from 'react-icons/ri';
 import { FiCheck } from 'react-icons/fi';
+import { BsFillTrashFill } from 'react-icons/bs';
 import { url } from '../../../utils/constant';
 import { HiOutlineEmojiSad } from 'react-icons/hi';
 import { MdClose } from 'react-icons/md';
@@ -101,9 +102,40 @@ const ProductPage = ({ productInfoContent }) => {
     }
   }
 
+  const [ AllcomentsOf, setAllComentsOf ] = useState([]);
+  const getAllcoments = async () => {
+    try {
+      const response = await api.get(`/listCommnetByProduct/${productInfoContent.id_produto}`);
+      setAllComentsOf(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  const DeleteComment = async (Idcomment) => {
+    try {
+      const response = await api.delete(`/deleteComment/${Idcomment}`, {
+        headers: {
+          token: localStorage.getItem('TokenHirokiToys')
+        }
+      })
+
+      if(response.data == true){
+        toast.info('Deletado com sucesso', {position: 'bottom-right'});
+        verificationCommentUser();
+        getAllcoments();
+      }else{
+        toast.error('Error', {position: 'bottom-right'});
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
   useEffect(() => {
     if(productInfoContent){
       getSimilarProduct();
+      getAllcoments();
       getAllReview();
       getCategoryName();
       setDadosProduto(productInfoContent);
@@ -226,14 +258,14 @@ const ProductPage = ({ productInfoContent }) => {
           <div className="HeaderDescription">
             <h1>COMENTÁRIOS DOS CLIENTES</h1>
             {EnableButton == false ? (
-              <button onClick={CallModal} >Avaliar produto</button>
+              <button onClick={CallModal}>Avaliar produto</button>
             ) : false}
           </div>
-          {dadosProduto.comentarios.length == 0 ? (<div className="WithOutComments">
+          {AllcomentsOf.length == 0 ? (<div className="WithOutComments">
             <h1><HiOutlineEmojiSad /> Ainda não temos nenhuma avaliação para este produto</h1>
             <small>seja a primeira pessoa a avaliar este produto</small>
           </div>) : 
-            dadosProduto.comentarios.map((dados, i) => (
+            AllcomentsOf.map((dados, i) => (
               <div key={i} className="ContainerContentComment">
                 <div className="leftSide">
                   <div className="informationComment">
@@ -260,6 +292,11 @@ const ProductPage = ({ productInfoContent }) => {
                           <p><FiCheck /> Comprei e valiei</p>
                         </div>
                       ) : false}
+                      {dados.id_user == idUser ? (
+                        <button onClick={() => {DeleteComment(dados.id_comentario)}}>
+                          <BsFillTrashFill />
+                        </button>
+                      ) : false}
                     </small>
                   </div>
                   <p>{dados.data.replace(/-/g, '/').split('/').reverse().join('/')}</p>
@@ -284,6 +321,7 @@ const ProductPage = ({ productInfoContent }) => {
           dadosProdutoPagina={dadosProduto}
           setDadosProdutoPagina={setDadosProduto}
           UpdateStatusButtonComment={verificationCommentUser}
+          UpdateComments={getAllcoments}
         />
       </>
     );
@@ -292,13 +330,14 @@ const ProductPage = ({ productInfoContent }) => {
   }
 }
 
-const ModalCreateComment = ({ onShowModal, setOnShowModal, idProduct, notification, dadosProdutoPagina, setDadosProdutoPagina, UpdateStatusButtonComment }) => {
+const ModalCreateComment = ({ onShowModal, setOnShowModal, idProduct, notification, dadosProdutoPagina, setDadosProdutoPagina, UpdateStatusButtonComment, UpdateComments }) => {
 
   const UpdateDtata = async() => {
     try {
       const response = await api.get(`/getProduct/${dadosProdutoPagina.id_produto}`);
       setDadosProdutoPagina(response.data[0]);
       UpdateStatusButtonComment();
+      UpdateComments();
     } catch (error) {
       console.log(error);
     }
